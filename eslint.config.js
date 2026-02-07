@@ -8,7 +8,7 @@ const {
 } = require('eslint-plugin-better-tailwindcss/defaults')
 
 module.exports = defineConfig([
-  globalIgnores(['dist', 'node_modules', '.expo']),
+  globalIgnores(['dist', 'node_modules', '.expo', '*.d.ts']),
   expoConfig,
   eslintPluginPrettierRecommended,
   pluginQuery.configs['flat/recommended'],
