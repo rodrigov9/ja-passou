@@ -1,9 +1,13 @@
 import { memo } from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { Link } from 'expo-router'
 
 import { ServiceCardHeader } from './service-card-header'
 import { ServiceTime } from './service-time'
 import { ServiceInfo } from './service-info'
+
+import { StyledIcon } from '../styled-icon'
+import { ChevronRightIcon } from 'lucide-react-native'
 
 import { ServiceData } from '@/lib/ip/get-station'
 import { ServiceStatus } from '@/lib/ip/service-status'
@@ -19,32 +23,58 @@ export const ServiceCard = memo(function ServiceCard({
   showOrigin
 }: ServiceCardProps) {
   return (
-    <View className="gap-2 rounded-xl border p-4">
-      <ServiceCardHeader service={service} />
+    <Link
+      href={{
+        pathname: '/services/[serviceId]',
+        params: {
+          serviceId: service.id,
+          date: service.date.format('YYYY-MM-DD'),
+          placeholderData: JSON.stringify({
+            id: service.id,
+            operator: service.operator,
+            type: service.type,
+            origin: service.origin.name,
+            destination: service.destination.name,
+            status: service.status,
+            delay: service.delay,
+            departureTime: service.date
+          })
+        }
+      }}
+      asChild
+    >
+      <TouchableOpacity className="flex-row items-center gap-4 rounded-xl border p-4">
+        <View className="flex-1 gap-2">
+          <ServiceCardHeader service={service} />
 
-      {showOrigin ? (
-        <Text>
-          Origem <Text className="font-bold">{service.origin.name}</Text>
-        </Text>
-      ) : (
-        <Text>
-          Destino <Text className="font-bold">{service.destination.name}</Text>
-        </Text>
-      )}
+          {showOrigin ? (
+            <Text>
+              Origem <Text className="font-bold">{service.origin.name}</Text>
+            </Text>
+          ) : (
+            <Text>
+              Destino{' '}
+              <Text className="font-bold">{service.destination.name}</Text>
+            </Text>
+          )}
 
-      <ServiceTime
-        status={service.status}
-        scheduledTime={service.date}
-        delay={service.delay}
-      />
+          <ServiceTime
+            status={service.status}
+            scheduledTime={service.date}
+            delay={service.delay}
+          />
 
-      {service.status === ServiceStatus.CANCELLED ? (
-        <ServiceInfo>Suprimido</ServiceInfo>
-      ) : service.delay.asMinutes() > 0 ? (
-        <ServiceInfo>
-          Comboio atrasado ({formatDuration(service.delay)})
-        </ServiceInfo>
-      ) : null}
-    </View>
+          {service.status === ServiceStatus.CANCELLED ? (
+            <ServiceInfo>Suprimido</ServiceInfo>
+          ) : service.delay.asMinutes() > 0 ? (
+            <ServiceInfo>
+              Comboio atrasado ({formatDuration(service.delay)})
+            </ServiceInfo>
+          ) : null}
+        </View>
+
+        <StyledIcon icon={ChevronRightIcon} className="size-6" />
+      </TouchableOpacity>
+    </Link>
   )
 })
