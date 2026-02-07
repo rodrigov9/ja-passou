@@ -75,7 +75,6 @@ export function useStation(stationIdOverride?: string) {
       return loadStationData(stationId, { signal })
     },
 
-    gcTime: 0,
     refetchOnWindowFocus: false
   })
   const { data, isFetching, refetch } = useQuery(options)
