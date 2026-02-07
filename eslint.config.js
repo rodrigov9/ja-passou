@@ -14,6 +14,9 @@ module.exports = defineConfig([
   pluginQuery.configs['flat/recommended'],
   eslintPluginBetterTailwindcss.configs['recommended-error'],
   {
+    rules: {
+      'better-tailwindcss/enforce-consistent-line-wrapping': 'off'
+    },
     settings: {
       'better-tailwindcss': {
         entryPoint: 'src/global.css',
