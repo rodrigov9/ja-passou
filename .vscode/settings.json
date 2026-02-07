@@ -1,0 +1,11 @@
+{
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    ".*ClassName"
+  ],
+  "tailwindCSS.classFunctions": [
+    "useResolveClassNames"
+  ]
+}
