@@ -1,11 +1,9 @@
 import { SafeAreaListener } from 'react-native-safe-area-context'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryProvider } from '@/components/query-provider'
 import { Stack } from 'expo-router'
 
 import { Uniwind } from 'uniwind'
 import '../global.css'
-
-const queryClient = new QueryClient()
 
 export default function RootLayout() {
   return (
@@ -14,9 +12,9 @@ export default function RootLayout() {
         Uniwind.updateInsets(insets)
       }}
     >
-      <QueryClientProvider client={queryClient}>
+      <QueryProvider>
         <Stack />
-      </QueryClientProvider>
+      </QueryProvider>
     </SafeAreaListener>
   )
 }
