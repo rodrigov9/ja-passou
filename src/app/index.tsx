@@ -5,11 +5,11 @@ import {
   Platform,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
   View
 } from 'react-native'
 import { Stack, Link } from 'expo-router'
+import { Input } from '@/components/input'
 
 import { useStationSearch } from '@/hooks/useStationSearch'
 
@@ -22,12 +22,12 @@ export default function Home() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View className="flex-row">
-        <TextInput
+        <Input
           value={name}
           onChangeText={setName}
           placeholder="Procurar estações"
           returnKeyType="search"
-          className="flex-1 rounded-xl border pr-10 pl-3"
+          className="pr-10"
         />
 
         <ActivityIndicator
@@ -56,7 +56,7 @@ export default function Home() {
               asChild
             >
               <TouchableOpacity>
-                <Text>{station.name}</Text>
+                <Text className="text-foreground">{station.name}</Text>
               </TouchableOpacity>
             </Link>
           ))}

@@ -13,8 +13,8 @@ type ServiceCardHeaderProps = {
 export function ServiceCardHeader({ service }: ServiceCardHeaderProps) {
   return (
     <View className="flex-row items-center gap-1">
-      <StyledIcon icon={TrainIcon} className="size-4" />
-      <Text className="text-xs">
+      <StyledIcon icon={TrainIcon} className="size-4 accent-card-foreground" />
+      <Text className="text-xs text-card-foreground">
         {service.id} | {service.operator} | {service.type}
       </Text>
     </View>

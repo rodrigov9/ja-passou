@@ -31,10 +31,12 @@ export function ServiceTime({
       )}
 
       {hasDelay && (
-        <Text className="line-through">{scheduledTime.format('HH:mm')}</Text>
+        <Text className="text-card-foreground line-through">
+          {scheduledTime.format('HH:mm')}
+        </Text>
       )}
 
-      <Text>{estimated.format('HH:mm')}</Text>
+      <Text className="text-card-foreground">{estimated.format('HH:mm')}</Text>
     </View>
   )
 }

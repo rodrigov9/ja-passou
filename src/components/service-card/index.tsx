@@ -43,16 +43,16 @@ export const ServiceCard = memo(function ServiceCard({
       }}
       asChild
     >
-      <TouchableOpacity className="flex-row items-center gap-4 rounded-xl border p-4">
+      <TouchableOpacity className="flex-row items-center gap-4 rounded-xl border border-border bg-card p-4">
         <View className="flex-1 gap-2">
           <ServiceCardHeader service={service} />
 
           {showOrigin ? (
-            <Text>
+            <Text className="text-card-foreground">
               Origem <Text className="font-bold">{service.origin.name}</Text>
             </Text>
           ) : (
-            <Text>
+            <Text className="text-card-foreground">
               Destino{' '}
               <Text className="font-bold">{service.destination.name}</Text>
             </Text>
@@ -73,7 +73,10 @@ export const ServiceCard = memo(function ServiceCard({
           ) : null}
         </View>
 
-        <StyledIcon icon={ChevronRightIcon} className="size-6" />
+        <StyledIcon
+          icon={ChevronRightIcon}
+          className="size-6 accent-card-foreground"
+        />
       </TouchableOpacity>
     </Link>
   )

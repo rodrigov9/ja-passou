@@ -9,7 +9,7 @@ export function ServiceListSectionHeader({
   section
 }: ServiceListSectionHeaderProps) {
   return (
-    <Text className="mx-auto mt-4 rounded-full bg-neutral-200 px-4 py-2">
+    <Text className="mx-auto mt-4 rounded-full bg-secondary px-4 py-2 text-secondary-foreground">
       {section.data[0].date.format('D [de] MMMM')}
     </Text>
   )

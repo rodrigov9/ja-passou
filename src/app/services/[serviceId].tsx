@@ -21,7 +21,9 @@ export default function Service() {
     placeholderData?: string
   }>()
   const { data, isPending, isFetching } = useService()
-  const headerTitleStyle = useResolveClassNames('font-bold text-lg')
+  const headerTitleStyle = useResolveClassNames(
+    'font-bold text-lg text-foreground'
+  )
 
   return (
     <>
@@ -46,19 +48,22 @@ export default function Service() {
               return (
                 <View className="gap-4 py-4">
                   <View className="flex-row flex-wrap items-center gap-x-4">
-                    <Text className="text-center text-lg font-bold">
+                    <Text className="text-center text-lg font-bold text-foreground">
                       {d.origin}
                     </Text>
 
-                    <StyledIcon icon={MoveRightIcon} />
+                    <StyledIcon
+                      icon={MoveRightIcon}
+                      className="size-6 accent-foreground"
+                    />
 
-                    <Text className="text-center text-lg font-bold">
+                    <Text className="text-center text-lg font-bold text-foreground">
                       {d.destination}
                     </Text>
                   </View>
 
                   <View className="gap-1">
-                    <Text className="text-xs">
+                    <Text className="text-xs text-foreground">
                       {d.departureTime.format('dddd, D [de] MMMM')}
                     </Text>
 
@@ -94,7 +99,7 @@ export default function Service() {
 
             return (
               <View key={stop.station.id} className="flex-row gap-4">
-                <Text className="w-24 text-right text-base">
+                <Text className="w-24 text-right text-base text-foreground">
                   {stop.ETA && (
                     <Text className="line-through">
                       {stop.scheduledTime.format('HH:mm')}
@@ -106,17 +111,19 @@ export default function Service() {
                 <View className="items-center">
                   <StyledIcon
                     icon={stop.hasPassed ? CircleDotIcon : CircleDotDashedIcon}
-                    className={`size-5 ${data.status === ServiceStatus.CANCELLED ? 'accent-red-800' : stop.hasPassed ? 'accent-green-800' : 'accent-neutral-400'}`}
+                    className={`size-5 ${data.status === ServiceStatus.CANCELLED ? 'accent-red-800' : stop.hasPassed ? 'accent-green-800' : 'accent-muted-foreground'}`}
                   />
 
                   {!isDestination && (
                     <View
-                      className={`h-8 border-l ${data.status === ServiceStatus.CANCELLED ? 'border-red-800' : stop.hasPassed ? 'border-green-800' : 'border-neutral-400'} ${data.stops[i + 1].hasPassed ? 'border-solid' : 'border-dashed'}`}
+                      className={`h-8 border-l ${data.status === ServiceStatus.CANCELLED ? 'border-red-800' : stop.hasPassed ? 'border-green-800' : 'border-muted-foreground'} ${data.stops[i + 1].hasPassed ? 'border-solid' : 'border-dashed'}`}
                     />
                   )}
                 </View>
 
-                <Text className="text-base">{stop.station.name}</Text>
+                <Text className="text-base text-foreground">
+                  {stop.station.name}
+                </Text>
               </View>
             )
           })}

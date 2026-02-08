@@ -4,6 +4,7 @@ import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 
 import { Uniwind } from 'uniwind'
+import { ThemeProvider } from '@/components/theme-provider'
 import '../global.css'
 
 export default function RootLayout() {
@@ -14,7 +15,9 @@ export default function RootLayout() {
       }}
     >
       <QueryProvider>
-        <Stack />
+        <ThemeProvider>
+          <Stack />
+        </ThemeProvider>
 
         <StatusBar style="auto" />
       </QueryProvider>

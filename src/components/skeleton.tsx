@@ -1,7 +1,8 @@
 import { ViewProps } from 'react-native'
 import Animated from 'react-native-reanimated'
+import { cn } from '@/utils/cn'
 
-export function Skeleton({ style, ...props }: ViewProps) {
+export function Skeleton({ style, className, ...props }: ViewProps) {
   return (
     <Animated.View
       style={[
@@ -16,6 +17,7 @@ export function Skeleton({ style, ...props }: ViewProps) {
         },
         style
       ]}
+      className={cn('bg-muted', className)}
       {...props}
     />
   )
