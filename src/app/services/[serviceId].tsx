@@ -42,7 +42,9 @@ export default function Service() {
                 d = {
                   ...parsedPlaceholderData,
                   departureTime: dayjs(parsedPlaceholderData.departureTime),
-                  delay: dayjs.duration(parsedPlaceholderData.delay)
+                  delay:
+                    parsedPlaceholderData.delay &&
+                    dayjs.duration(parsedPlaceholderData.delay)
                 } as Exclude<typeof d, undefined>
               }
 
@@ -73,7 +75,7 @@ export default function Service() {
 
                   {d.status === ServiceStatus.CANCELLED ? (
                     <ServiceInfo>Suprimido</ServiceInfo>
-                  ) : d.delay.asMinutes() > 0 ? (
+                  ) : d.delay ? (
                     <ServiceInfo>
                       Comboio atrasado ({formatDuration(d.delay)})
                     </ServiceInfo>

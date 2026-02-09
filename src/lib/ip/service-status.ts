@@ -18,6 +18,9 @@ export function getServiceStatus(notes: string) {
 }
 
 export function getServiceDelay(notes: string) {
-  const delay = notes.match(/Circula com atraso de (\d+) min\./)?.[1] ?? '0'
+  const delay = notes.match(/Circula com atraso de (\d+) min\./)?.[1]
+
+  if (!delay) return null
+
   return dayjs.duration(parseInt(delay), 'minutes')
 }

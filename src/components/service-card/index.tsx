@@ -61,12 +61,12 @@ export const ServiceCard = memo(function ServiceCard({
           <ServiceTime
             status={service.status}
             scheduledTime={service.date}
-            delay={service.delay}
+            ETA={service.ETA}
           />
 
           {service.status === ServiceStatus.CANCELLED ? (
             <ServiceInfo>Suprimido</ServiceInfo>
-          ) : service.delay.asMinutes() > 0 ? (
+          ) : service.delay ? (
             <ServiceInfo>
               Comboio atrasado ({formatDuration(service.delay)})
             </ServiceInfo>

@@ -3,11 +3,7 @@ import { ipApi } from './api'
 import { dayjs } from '@/lib/dayjs'
 
 import { formatName } from '@/utils/format-name'
-import {
-  getServiceDelay,
-  getServiceStatus,
-  ServiceStatus
-} from './service-status'
+import { getServiceDelay, getServiceStatus } from './service-status'
 import { SERVICE_TYPE_MAP } from './service-type-map'
 
 enum StationRequestType {
@@ -51,6 +47,8 @@ function parseService(service: ServiceRawData) {
     service.DataHoraPartidaChegada_ToOrderBy,
     'DD-MM-YYYY HH:mm:ss'
   )
+  const status = getServiceStatus(service.Observacoes)
+  const delay = getServiceDelay(service.Observacoes)
 
   return {
     key: `${id}_${date.unix()}`,
@@ -67,17 +65,16 @@ function parseService(service: ServiceRawData) {
       name: formatName(service.NomeEstacaoDestino)
     },
     hasPassed: service.ComboioPassou,
-    status: getServiceStatus(service.Observacoes),
-    delay: getServiceDelay(service.Observacoes)
+    status,
+    delay,
+    ETA: delay && date.add(delay)
   }
 }
 
 function filterService(service: ServiceData) {
   return (
     !service.hasPassed &&
-    (-service.date.add(service.delay).diff() <= 1 * 60 * 1000 ||
-      (service.status === ServiceStatus.CANCELLED &&
-        -service.date.diff() <= 1 * 60 * 60 * 1000))
+    -(service.ETA ?? service.date).diff() <= 10 * 60 * 1000 // 10 minutes
   )
 }
 

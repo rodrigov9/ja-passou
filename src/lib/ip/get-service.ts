@@ -70,7 +70,9 @@ export async function getService(
               `${date} ${stop.Observacoes}`,
               'YYYY-MM-DD [Hora Prevista:]HH:mm'
             )
-          : delay && scheduledTime.add(delay)
+          : delay && !stop.ComboioPassou
+            ? scheduledTime.add(delay)
+            : null
       }
     })
   }
