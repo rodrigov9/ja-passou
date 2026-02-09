@@ -21,7 +21,7 @@ export default function Service() {
   const { placeholderData } = useLocalSearchParams<{
     placeholderData?: string
   }>()
-  const { data, isPending, isFetching } = useService()
+  const { data, isPending, isRefetching } = useService()
   const headerTitleStyle = useResolveClassNames(
     'font-bold text-lg text-foreground'
   )
@@ -84,14 +84,14 @@ export default function Service() {
         }}
       />
 
+      <Spinner className="absolute top-2 right-2" animating={isRefetching} />
+
       {isPending || !data ? (
         <View className="flex-1 items-center justify-center">
           <Spinner size="large" />
         </View>
       ) : (
         <ScrollView contentContainerClassName="p-safe-or-6 pt-6">
-          <Spinner className="absolute top-2 right-2" animating={isFetching} />
-
           {data.stops.map((stop, i) => {
             const isOrigin = i === 0
             const isDestination = i === data.stops.length - 1
