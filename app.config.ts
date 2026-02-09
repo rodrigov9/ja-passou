@@ -1,43 +1,64 @@
 import { ExpoConfig } from 'expo/config'
 
-const IS_DEV = process.env.APP_VARIANT === 'development'
+let appId = 'dev.rvitorino.japassou'
+let appName = 'Já Passou?'
+let appScheme = 'japassou'
+let iconsFolder = ''
+
+if (process.env.APP_VARIANT === 'development') {
+  appId += '.debug'
+  appName += ' (Debug)'
+  appScheme += '-debug'
+  iconsFolder = 'debug/'
+}
 
 export default {
-  name: IS_DEV ? 'Comboios (Dev)' : 'Comboios',
-  slug: 'comboios',
-  scheme: 'comboios',
+  name: appName,
+  slug: 'japassou',
+  scheme: appScheme,
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/icon.png',
+  icon: `./assets/${iconsFolder}icon.png`,
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
-  splash: {
-    image: './assets/splash-icon.png',
-    resizeMode: 'contain',
-    backgroundColor: '#ffffff'
-  },
   ios: {
+    icon: {
+      light: `./assets/${iconsFolder}icon-light.png`,
+      dark: `./assets/${iconsFolder}icon-dark.png`,
+      tinted: `./assets/${iconsFolder}icon-tinted.png`
+    },
     supportsTablet: true
   },
   android: {
+    package: appId,
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#ffffff'
+      foregroundImage: `./assets/${iconsFolder}adaptive-icon.png`,
+      backgroundImage: `./assets/adaptive-icon-background.png`,
+      monochromeImage: `./assets/${iconsFolder}adaptive-icon-monochrome.png`
     },
-    edgeToEdgeEnabled: true,
-    predictiveBackGestureEnabled: false,
-    package: IS_DEV ? 'com.rodrigov9.comboios.dev' : 'com.rodrigov9.comboios'
+    predictiveBackGestureEnabled: false
   },
-  web: {
-    favicon: './assets/favicon.png'
-  },
-  plugins: ['expo-router'],
+  plugins: [
+    [
+      'expo-splash-screen',
+      {
+        image: './assets/splash-icon-light.png',
+        backgroundColor: '#06b6d4',
+        dark: {
+          image: './assets/splash-icon-dark.png',
+          backgroundColor: '#0a0a0a'
+        },
+        imageWidth: 200
+      }
+    ],
+    'expo-router'
+  ],
   experiments: {
     typedRoutes: true
   },
   extra: {
     eas: {
-      projectId: '704abdb6-a388-4fd2-9e7e-0fead1539989'
+      projectId: '3d2cd5fa-25c2-48a7-89b5-4dd48bc8cfaa'
     }
   }
 } satisfies ExpoConfig

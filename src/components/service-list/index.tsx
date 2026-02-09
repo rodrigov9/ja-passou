@@ -1,11 +1,12 @@
 import { useMemo, useRef, useState } from 'react'
-import { SectionList, SectionListData, ActivityIndicator } from 'react-native'
+import { SectionList, SectionListData } from 'react-native'
 import { useScrollToTop } from '@react-navigation/native'
 
 import { ServiceListSectionHeader } from './section-header'
 import { ServiceListSkeleton } from './skeleton'
 import { ServiceListEmpty } from './empty'
 import { ServiceCard } from '../service-card'
+import { Spinner } from '../spinner'
 
 import { useStation } from '@/hooks/useStation'
 import { ServiceData } from '@/lib/ip/get-station'
@@ -85,9 +86,7 @@ export function ServiceList({ type }: ServiceListProps) {
       renderSectionHeader={ServiceListSectionHeader}
       stickySectionHeadersEnabled
       // Footer Spinner
-      ListFooterComponent={
-        sections.length && !isFetching ? ActivityIndicator : null
-      }
+      ListFooterComponent={sections.length && !isFetching ? Spinner : null}
       // Infinite scroll
       onLayout={e => {
         listHeight.current = e.nativeEvent.layout.height

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -10,6 +9,7 @@ import {
 } from 'react-native'
 import { Stack, Link } from 'expo-router'
 import { Input } from '@/components/input'
+import { Spinner } from '@/components/spinner'
 
 import { useStationSearch } from '@/hooks/useStationSearch'
 
@@ -30,7 +30,7 @@ export default function Home() {
           className="pr-10"
         />
 
-        <ActivityIndicator
+        <Spinner
           className="absolute inset-y-1 right-3"
           animating={isFetching}
         />

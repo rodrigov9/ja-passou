@@ -4,12 +4,12 @@
 @layer theme {
   :root {
     @variant light {
+      --color-primary: var(--color-cyan-500);
+      --color-primary-foreground: var(--color-neutral-50);
       --color-background: var(--color-white);
       --color-foreground: var(--color-neutral-950);
       --color-card: var(--color-white);
       --color-card-foreground: var(--color-neutral-950);
-      --color-primary: var(--color-neutral-900);
-      --color-primary-foreground: var(--color-neutral-50);
       --color-secondary: var(--color-neutral-100);
       --color-secondary-foreground: var(--color-neutral-900);
       --color-muted: var(--color-neutral-100);
@@ -19,12 +19,12 @@
     }
 
     @variant dark {
+      --color-primary: var(--color-cyan-500);
+      --color-primary-foreground: var(--color-neutral-50);
       --color-background: var(--color-neutral-950);
       --color-foreground: var(--color-neutral-50);
       --color-card: var(--color-neutral-900);
       --color-card-foreground: var(--color-neutral-50);
-      --color-primary: var(--color-neutral-200);
-      --color-primary-foreground: var(--color-neutral-900);
       --color-secondary: var(--color-neutral-800);
       --color-secondary-foreground: var(--color-neutral-50);
       --color-muted: var(--color-neutral-800);

@@ -1,4 +1,4 @@
-import { Text, ScrollView, View, ActivityIndicator } from 'react-native'
+import { Text, ScrollView, View } from 'react-native'
 import { Stack, useLocalSearchParams } from 'expo-router'
 
 import { useResolveClassNames } from 'uniwind'
@@ -10,6 +10,7 @@ import {
 } from 'lucide-react-native'
 import { ServiceCardHeader } from '@/components/service-card/service-card-header'
 import { ServiceInfo } from '@/components/service-card/service-info'
+import { Spinner } from '@/components/spinner'
 
 import { dayjs } from '@/lib/dayjs'
 import { useService } from '@/hooks/useService'
@@ -85,14 +86,11 @@ export default function Service() {
 
       {isPending || !data ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" />
+          <Spinner size="large" />
         </View>
       ) : (
         <ScrollView contentContainerClassName="p-safe-or-6 pt-6">
-          <ActivityIndicator
-            className="absolute top-2 right-2"
-            animating={isFetching}
-          />
+          <Spinner className="absolute top-2 right-2" animating={isFetching} />
 
           {data.stops.map((stop, i) => {
             const isDestination = i === data.stops.length - 1
