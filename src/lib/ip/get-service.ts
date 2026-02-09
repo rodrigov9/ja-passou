@@ -37,6 +37,8 @@ export async function getService(
     config
   )
 
+  const delay = getServiceDelay(data.response.SituacaoComboio)
+
   return {
     id: parseInt(id),
     operator: formatName(data.response.Operador),
@@ -51,21 +53,25 @@ export async function getService(
       minutes: parseInt(data.response.DuracaoViagem.split(':')[1])
     }),
     status: getServiceStatus(data.response.SituacaoComboio),
-    delay: getServiceDelay(data.response.SituacaoComboio),
+    delay,
 
-    stops: data.response.NodesPassagemComboio.map(stop => ({
-      station: {
-        id: stop.NodeID,
-        name: formatName(stop.NomeEstacao)
-      },
-      scheduledTime: dayjs(`${date} ${stop.HoraProgramada}`),
-      hasPassed: stop.ComboioPassou,
-      ETA: stop.Observacoes
-        ? dayjs(
-            `${date} ${stop.Observacoes}`,
-            'YYYY-MM-DD [Hora Prevista:]HH:mm'
-          )
-        : null
-    }))
+    stops: data.response.NodesPassagemComboio.map(stop => {
+      const scheduledTime = dayjs(`${date} ${stop.HoraProgramada}`)
+
+      return {
+        station: {
+          id: stop.NodeID,
+          name: formatName(stop.NomeEstacao)
+        },
+        scheduledTime,
+        hasPassed: stop.ComboioPassou,
+        ETA: stop.Observacoes
+          ? dayjs(
+              `${date} ${stop.Observacoes}`,
+              'YYYY-MM-DD [Hora Prevista:]HH:mm'
+            )
+          : delay && scheduledTime.add(delay)
+      }
+    })
   }
 }

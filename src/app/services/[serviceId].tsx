@@ -93,18 +93,23 @@ export default function Service() {
           <Spinner className="absolute top-2 right-2" animating={isFetching} />
 
           {data.stops.map((stop, i) => {
+            const isOrigin = i === 0
             const isDestination = i === data.stops.length - 1
 
             return (
               <View key={stop.station.id} className="flex-row gap-4">
-                <Text className="w-24 text-right text-base text-foreground">
-                  {stop.ETA && (
-                    <Text className="line-through">
-                      {stop.scheduledTime.format('HH:mm')}
-                    </Text>
-                  )}{' '}
-                  {(stop.ETA ?? stop.scheduledTime).format('HH:mm')}
-                </Text>
+                {isOrigin || isDestination || !stop.hasPassed ? (
+                  <Text className="w-24 text-right text-base text-foreground">
+                    {stop.ETA && (
+                      <Text className="line-through">
+                        {stop.scheduledTime.format('HH:mm')}
+                      </Text>
+                    )}{' '}
+                    {(stop.ETA ?? stop.scheduledTime).format('HH:mm')}
+                  </Text>
+                ) : (
+                  <View className="w-24" />
+                )}
 
                 <View className="items-center">
                   <StyledIcon
