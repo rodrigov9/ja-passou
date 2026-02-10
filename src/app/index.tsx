@@ -28,6 +28,7 @@ export default function Home() {
           placeholder="Procurar estações"
           returnKeyType="search"
           className="pr-10"
+          selectTextOnFocus
         />
 
         <Spinner
