@@ -86,8 +86,10 @@ export async function getStation(
   }: { stationId: string; start: dayjs.Dayjs; hours: number },
   config?: AxiosRequestConfig
 ) {
+  const end = start.add(hours, 'hours')
+
   const dateStart = start.format('YYYY-MM-DD HH:mm')
-  const dateEnd = start.add(hours, 'hours').format('YYYY-MM-DD HH:mm')
+  const dateEnd = end.format('YYYY-MM-DD HH:mm')
   const types = Object.keys(SERVICE_TYPE_MAP).join(', ')
 
   const { data } = await ipApi.get<GetStationResponse>(
@@ -103,15 +105,19 @@ export async function getStation(
     data.response.find(r => r.TipoPedido === StationRequestType.Arrivals)
       ?.NodesComboioTabelsPartidasChegadas ?? []
 
-  const parsedDepartures = departures.map(parseService)
-  const parsedArrivals = arrivals.map(parseService)
+  const parsedDepartures = departures
+    .map(parseService)
+    .filter(service => service.date.isBefore(end))
+  const parsedArrivals = arrivals
+    .map(parseService)
+    .filter(service => service.date.isBefore(end))
 
   const nextFetchStart =
     dayjs.min(
       [parsedDepartures.at(-1)?.date, parsedArrivals.at(-1)?.date].filter(
         date => !!date
       )
-    ) ?? start.add(hours, 'hours')
+    ) ?? end
 
   return {
     id: data.response[0]?.NodeID,
