@@ -13,7 +13,8 @@ export function Skeleton({ style, className, ...props }: ViewProps) {
             }
           },
           animationDuration: '2s',
-          animationTimingFunction: 'ease-in-out'
+          animationTimingFunction: 'ease-in-out',
+          animationIterationCount: 'infinite'
         },
         style
       ]}
