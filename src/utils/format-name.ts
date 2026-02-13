@@ -23,7 +23,7 @@ const exceptions = [
   'para'
 ]
 
-const acronyms = ['CP']
+const acronyms = ['CP', 'PT']
 
 export function formatName(name: string) {
   return name
