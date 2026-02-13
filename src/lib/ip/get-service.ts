@@ -56,7 +56,18 @@ export async function getService(
     delay,
 
     stops: data.response.NodesPassagemComboio.map(stop => {
-      const scheduledTime = dayjs(`${date} ${stop.HoraProgramada}`)
+      let timeString = `${date} ${stop.HoraProgramada}`
+      let format = 'YYYY-MM-DD HH:mm'
+
+      if (stop.NomeEstacao === data.response.Origem) {
+        timeString = data.response.DataHoraOrigem
+        format = 'DD/MM/YYYY HH:mm:ss'
+      } else if (stop.NomeEstacao === data.response.Destino) {
+        timeString = data.response.DataHoraDestino
+        format = 'DD/MM/YYYY HH:mm:ss'
+      }
+
+      const scheduledTime = dayjs(timeString, format)
 
       return {
         station: {
