@@ -19,6 +19,20 @@
 - ⚠️ Delays and suppressions
 - 🌙 Dark Mode
 
+## Installation
+
+### Android
+
+The app is currently in closed testing. Google requires new apps to run a closed test with at least 12 testers, for at least 14 days. If you want to help, follow this steps:
+
+1. Join the Google Group: https://groups.google.com/g/japassou-alpha
+2. Join the closed test: https://play.google.com/apps/testing/dev.rvitorino.japassou
+3. Install the app: https://play.google.com/store/apps/details?id=dev.rvitorino.japassou
+
+### iOS
+
+Building for iOS requires a paid Apple Developer membership that I can not currently afford, but you can [build the app yourself](#building-for-production).
+
 ## Tech stack
 
 - Expo + React Native + Expo Router
