@@ -8,6 +8,8 @@ import { ParamListBase, TabNavigationState } from '@react-navigation/native'
 
 import { useStation, StationProvider } from '@/hooks/useStation'
 
+import { FavoriteHeaderButton } from '@/components/favorite-header-button'
+
 const { Navigator } = createMaterialTopTabNavigator()
 
 export const MaterialTopTabs = withLayoutContext<
@@ -23,16 +25,21 @@ export default function StationLayout() {
     { stationName?: string }
   >()
   const stationId = parseInt(params.stationId)
-  const { stationName } = params
-
   const { data, refetch, isFetching } = useStation(stationId)
+  const stationName = data?.name ?? params.stationName
 
   return (
     <StationProvider value={{ stationId }}>
       <Stack.Screen
         options={{
-          title: data?.name ?? stationName ?? 'A carregar...',
-          headerShadowVisible: false
+          title: stationName ?? 'A carregar...',
+          headerShadowVisible: false,
+          headerRight: () => (
+            <FavoriteHeaderButton
+              stationId={stationId}
+              stationName={stationName}
+            />
+          )
         }}
       />
 

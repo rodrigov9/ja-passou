@@ -1,4 +1,5 @@
 import { SafeAreaListener } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { QueryProvider } from '@/components/query-provider'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -14,13 +15,15 @@ export default function RootLayout() {
         Uniwind.updateInsets(insets)
       }}
     >
-      <QueryProvider>
-        <ThemeProvider>
-          <Stack />
-        </ThemeProvider>
+      <GestureHandlerRootView>
+        <QueryProvider>
+          <ThemeProvider>
+            <Stack />
+          </ThemeProvider>
 
-        <StatusBar style="auto" />
-      </QueryProvider>
+          <StatusBar style="auto" />
+        </QueryProvider>
+      </GestureHandlerRootView>
     </SafeAreaListener>
   )
 }

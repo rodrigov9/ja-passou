@@ -27,7 +27,7 @@
 
 ## Roadmap
 
-- [ ] ⭐ Favourite stations
+- [x] ⭐ Favorite stations
 - [ ] 🪪 Get train status from service id and date
 - [ ] 🏷️ Filter station services by type
 - [ ] 📜 OSS licenses page

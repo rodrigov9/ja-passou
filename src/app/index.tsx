@@ -2,16 +2,22 @@ import { useState } from 'react'
 import {
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
+  FlatList,
   Text,
-  TouchableOpacity,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native'
-import { Stack, Link } from 'expo-router'
+import { Stack } from 'expo-router'
 import { Input } from '@/components/input'
 import { Spinner } from '@/components/spinner'
+import { Separator } from '@/components/separator'
+
+import { StyledIcon } from '@/components/styled-icon'
+import { XIcon } from 'lucide-react-native'
 
 import { useStationSearch } from '@/hooks/useStationSearch'
+import { Favorites } from '@/components/favorites'
+import { StationListItem } from '@/components/station-list-item'
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -28,40 +34,42 @@ export default function Home() {
           placeholder="Procurar estações"
           returnKeyType="search"
           className="pr-10"
-          selectTextOnFocus
         />
 
-        <Spinner
-          className="absolute inset-y-1 right-3"
-          animating={isFetching}
-        />
+        {isFetching ? (
+          <Spinner className="absolute inset-y-1 right-3" />
+        ) : name ? (
+          <TouchableOpacity
+            onPress={() => setName('')}
+            className="absolute inset-y-0 right-0 justify-center px-3.5"
+          >
+            <StyledIcon icon={XIcon} className="size-4 accent-foreground" />
+          </TouchableOpacity>
+        ) : null}
       </View>
 
       <KeyboardAvoidingView
         behavior={Platform.select({ android: 'height', default: 'padding' })}
       >
-        <ScrollView
-          contentContainerClassName="gap-2 py-4"
-          keyboardShouldPersistTaps="handled"
-        >
-          {data?.map(station => (
-            <Link
-              key={station.id}
-              href={{
-                pathname: '/stations/[stationId]/departures',
-                params: {
-                  stationId: station.id,
-                  stationName: station.name
-                }
-              }}
-              asChild
-            >
-              <TouchableOpacity>
-                <Text className="text-foreground">{station.name}</Text>
-              </TouchableOpacity>
-            </Link>
-          ))}
-        </ScrollView>
+        {!name ? (
+          <Favorites />
+        ) : (
+          <FlatList
+            data={data ?? []}
+            keyExtractor={station => String(station.id)}
+            keyboardShouldPersistTaps="handled"
+            contentContainerClassName="py-2"
+            renderItem={StationListItem}
+            ItemSeparatorComponent={Separator}
+            ListEmptyComponent={
+              !isFetching ? (
+                <Text className="text-foreground">
+                  Nenhuma estação encontrada
+                </Text>
+              ) : null
+            }
+          />
+        )}
       </KeyboardAvoidingView>
     </View>
   )
