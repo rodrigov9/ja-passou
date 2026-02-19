@@ -1,4 +1,5 @@
 import { ExpoConfig } from 'expo/config'
+import packageJson from './package.json'
 
 let appId = 'dev.rvitorino.japassou'
 let appName = 'Já Passou?'
@@ -21,7 +22,7 @@ export default {
   name: appName,
   slug: 'japassou',
   scheme: 'japassou',
-  version: '0.1.0',
+  version: packageJson.version,
   orientation: 'portrait',
   icon: `./assets/${iconsFolder}icon.png`,
   userInterfaceStyle: 'automatic',

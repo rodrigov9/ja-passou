@@ -1,6 +1,6 @@
 {
-  "name": "comboios",
-  "version": "1.0.0",
+  "name": "japassou",
+  "version": "0.1.0",
   "main": "expo-router/entry",
   "scripts": {
     "start": "cross-env APP_VARIANT=development expo start",
