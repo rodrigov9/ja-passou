@@ -18,10 +18,13 @@ export const MaterialTopTabs = withLayoutContext<
 >(Navigator)
 
 export default function StationLayout() {
-  const { stationId, stationName } = useLocalSearchParams<
+  const params = useLocalSearchParams<
     '/stations/[stationId]/departures',
     { stationName?: string }
   >()
+  const stationId = parseInt(params.stationId)
+  const { stationName } = params
+
   const { data, refetch, isFetching } = useStation(stationId)
 
   return (

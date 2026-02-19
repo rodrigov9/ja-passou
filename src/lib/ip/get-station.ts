@@ -83,7 +83,7 @@ export async function getStation(
     stationId,
     start,
     hours
-  }: { stationId: string; start: dayjs.Dayjs; hours: number },
+  }: { stationId: number; start: dayjs.Dayjs; hours: number },
   config?: AxiosRequestConfig
 ) {
   const end = start.add(hours, 'hours')

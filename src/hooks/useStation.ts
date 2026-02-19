@@ -13,7 +13,7 @@ type FetchOptions = Parameters<typeof getStation>[1] & {
 }
 
 async function loadStationData(
-  stationId: string,
+  stationId: number,
   { oldData, ...options }: FetchOptions = {},
   attempt = 0
 ) {
@@ -52,10 +52,10 @@ async function loadStationData(
   return accumulatedData
 }
 
-const stationContext = createContext<{ stationId: string } | null>(null)
+export const stationContext = createContext<{ stationId: number } | null>(null)
 export const StationProvider = stationContext.Provider
 
-export function useStation(stationIdOverride?: string) {
+export function useStation(stationIdOverride?: number) {
   const ctx = useContext(stationContext)
   const stationId = stationIdOverride ?? ctx?.stationId
 
