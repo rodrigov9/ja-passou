@@ -16,7 +16,7 @@ export default {
   name: appName,
   slug: 'japassou',
   scheme: appScheme,
-  version: '1.0.0',
+  version: '0.1.0',
   orientation: 'portrait',
   icon: `./assets/${iconsFolder}icon.png`,
   userInterfaceStyle: 'automatic',
