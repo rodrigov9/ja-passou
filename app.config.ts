@@ -2,20 +2,25 @@ import { ExpoConfig } from 'expo/config'
 
 let appId = 'dev.rvitorino.japassou'
 let appName = 'Já Passou?'
-let appScheme = 'japassou'
 let iconsFolder = ''
 
-if (process.env.APP_VARIANT === 'development') {
-  appId += '.debug'
-  appName += ' (Debug)'
-  appScheme += '-debug'
-  iconsFolder = 'debug/'
+switch (process.env.APP_VARIANT) {
+  case 'development':
+    appId += '.debug'
+    appName += ' (Debug)'
+    iconsFolder = 'debug/'
+    break
+  case 'preview':
+    appId += '.preview'
+    appName += ' (Preview)'
+    iconsFolder = 'preview/'
+    break
 }
 
 export default {
   name: appName,
   slug: 'japassou',
-  scheme: appScheme,
+  scheme: 'japassou',
   version: '0.1.0',
   orientation: 'portrait',
   icon: `./assets/${iconsFolder}icon.png`,
