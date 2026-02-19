@@ -1,5 +1,12 @@
-import { useState } from 'react'
-import { Pressable, Text, TouchableOpacity, View } from 'react-native'
+import { useCallback, useState } from 'react'
+import {
+  BackHandler,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import { useFocusEffect } from 'expo-router'
 import DraggableFlatList, {
   ScaleDecorator
 } from 'react-native-draggable-flatlist'
@@ -20,6 +27,24 @@ import { Separator } from './separator'
 export function Favorites() {
   const { favorites, toggleFavorite, setFavorites } = useFavorites()
   const [isEditMode, setIsEditMode] = useState(false)
+
+  useFocusEffect(
+    useCallback(() => {
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          if (isEditMode) {
+            setIsEditMode(false)
+            return true
+          }
+
+          return false
+        }
+      )
+
+      return () => subscription.remove()
+    }, [isEditMode])
+  )
 
   return (
     <DraggableFlatList

@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   KeyboardAvoidingView,
   Platform,
   FlatList,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  BackHandler
 } from 'react-native'
-import { Stack } from 'expo-router'
+import { Stack, useFocusEffect } from 'expo-router'
 import { Input } from '@/components/input'
 import { Spinner } from '@/components/spinner'
 import { Separator } from '@/components/separator'
@@ -22,6 +23,24 @@ import { StationListItem } from '@/components/station-list-item'
 export default function Home() {
   const [name, setName] = useState('')
   const { data, isFetching } = useStationSearch(name)
+
+  useFocusEffect(
+    useCallback(() => {
+      const subscription = BackHandler.addEventListener(
+        'hardwareBackPress',
+        () => {
+          if (name) {
+            setName('')
+            return true
+          }
+
+          return false
+        }
+      )
+
+      return () => subscription.remove()
+    }, [name])
+  )
 
   return (
     <View className="p-safe-offset-6">
