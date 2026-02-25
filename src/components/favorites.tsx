@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react'
 import {
   BackHandler,
+  Platform,
   Pressable,
   Text,
   TouchableOpacity,
   View
 } from 'react-native'
+import * as Haptics from 'expo-haptics'
 import { useFocusEffect } from 'expo-router'
 import DraggableFlatList, {
   ScaleDecorator
@@ -46,6 +48,14 @@ export function Favorites() {
     }, [isEditMode])
   )
 
+  function handleDragBegin() {
+    if (Platform.OS === 'android') {
+      Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Drag_Start)
+    } else {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+    }
+  }
+
   return (
     <DraggableFlatList
       data={favorites ?? []}
@@ -82,6 +92,7 @@ export function Favorites() {
         </Text>
       }
       ItemSeparatorComponent={isEditMode ? undefined : Separator}
+      onDragBegin={handleDragBegin}
       onDragEnd={({ data }) => setFavorites(data)}
       renderItem={
         isEditMode
