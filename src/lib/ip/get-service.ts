@@ -37,6 +37,10 @@ export async function getService(
     config
   )
 
+  if (Object.values(data.response).every(value => value === null)) {
+    throw new Error('Service not found')
+  }
+
   const delay = getServiceDelay(data.response.SituacaoComboio)
 
   return {

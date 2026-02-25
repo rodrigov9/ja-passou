@@ -42,7 +42,7 @@ Building for iOS requires a paid Apple Developer membership that I can not curre
 ## Roadmap
 
 - [x] ⭐ Favorite stations
-- [ ] 🪪 Get train status from service id and date
+- [x] 🪪 Get train status from service id and date
 - [ ] 🏷️ Filter station services by type
 - [ ] 📜 OSS licenses page
 - [ ] 🌐 English translation

@@ -1,3 +1,5 @@
+import 'tsx/cjs'
+
 import { ExpoConfig } from 'expo/config'
 import packageJson from './package.json'
 
@@ -57,7 +59,8 @@ export default {
         imageWidth: 200
       }
     ],
-    'expo-router'
+    'expo-router',
+    './plugins/withDateTimePickerMaterialDesignCustomStyle'
   ],
   experiments: {
     typedRoutes: true

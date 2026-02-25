@@ -1,8 +1,13 @@
+import { Ref } from 'react'
 import { TextInput, TextInputProps } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 import { cn } from '@/utils/cn'
 
-export function Input({ className, ...props }: TextInputProps) {
+type InputProps = TextInputProps & {
+  ref?: Ref<TextInput>
+}
+
+export function Input({ className, ...props }: InputProps) {
   const [placeholderColor, selectionColor] = useCSSVariable([
     '--color-muted-foreground',
     '--color-primary'

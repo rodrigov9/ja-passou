@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   BackHandler
 } from 'react-native'
-import { Stack, useFocusEffect } from 'expo-router'
+import { useFocusEffect } from 'expo-router'
 import { Input } from '@/components/input'
 import { Spinner } from '@/components/spinner'
 import { Separator } from '@/components/separator'
@@ -20,7 +20,7 @@ import { useStationSearch } from '@/hooks/useStationSearch'
 import { Favorites } from '@/components/favorites'
 import { StationListItem } from '@/components/station-list-item'
 
-export default function Home() {
+export default function Stations() {
   const [name, setName] = useState('')
   const { data, isFetching } = useStationSearch(name)
 
@@ -43,9 +43,7 @@ export default function Home() {
   )
 
   return (
-    <View className="p-safe-offset-6">
-      <Stack.Screen options={{ headerShown: false }} />
-
+    <View className="p-safe-offset-6 pb-6">
       <View className="flex-row">
         <Input
           value={name}

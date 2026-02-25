@@ -1,8 +1,10 @@
 import { ActivityIndicator, ActivityIndicatorProps } from 'react-native'
 import { useResolveClassNames } from 'uniwind'
 
-export function Spinner(props: ActivityIndicatorProps) {
-  const { color } = useResolveClassNames('android:text-primary')
+export function Spinner({ colorClassName, ...props }: ActivityIndicatorProps) {
+  const { accentColor } = useResolveClassNames(
+    colorClassName ?? 'android:accent-primary'
+  )
 
-  return <ActivityIndicator color={color} {...props} />
+  return <ActivityIndicator color={accentColor} {...props} />
 }
