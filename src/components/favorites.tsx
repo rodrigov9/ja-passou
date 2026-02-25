@@ -51,7 +51,6 @@ export function Favorites() {
       data={favorites ?? []}
       keyExtractor={(station, index) => `${station.id}-${index}`}
       keyboardShouldPersistTaps="handled"
-      className="overflow-visible"
       contentContainerClassName="px-6 py-3"
       ListHeaderComponentClassName="flex-row items-center gap-2 py-1"
       ListHeaderComponent={
@@ -88,7 +87,7 @@ export function Favorites() {
         isEditMode
           ? ({ item: station, drag, isActive }) => (
               <ScaleDecorator>
-                <Pressable onPressIn={drag} disabled={isActive}>
+                <Pressable onLongPress={drag} disabled={isActive}>
                   <View className="flex-row items-center gap-2 border-b border-transparent py-2">
                     <StyledIcon
                       icon={MenuIcon}
