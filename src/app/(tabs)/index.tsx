@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react'
 import {
   KeyboardAvoidingView,
-  Platform,
   FlatList,
   Text,
   View,
@@ -43,8 +42,11 @@ export default function Stations() {
   )
 
   return (
-    <View className="p-safe-offset-6 pb-6">
-      <View className="flex-row">
+    <KeyboardAvoidingView
+      className="flex-1 pt-safe-offset-6"
+      behavior="padding"
+    >
+      <View className="mx-6 flex-row">
         <Input
           value={name}
           onChangeText={setName}
@@ -65,29 +67,25 @@ export default function Stations() {
         ) : null}
       </View>
 
-      <KeyboardAvoidingView
-        behavior={Platform.select({ android: 'height', default: 'padding' })}
-      >
-        {!name ? (
-          <Favorites />
-        ) : (
-          <FlatList
-            data={data ?? []}
-            keyExtractor={station => String(station.id)}
-            keyboardShouldPersistTaps="handled"
-            contentContainerClassName="py-2"
-            renderItem={StationListItem}
-            ItemSeparatorComponent={Separator}
-            ListEmptyComponent={
-              !isFetching ? (
-                <Text className="text-foreground">
-                  Nenhuma estação encontrada
-                </Text>
-              ) : null
-            }
-          />
-        )}
-      </KeyboardAvoidingView>
-    </View>
+      {!name ? (
+        <Favorites />
+      ) : (
+        <FlatList
+          data={data ?? []}
+          keyExtractor={station => String(station.id)}
+          keyboardShouldPersistTaps="handled"
+          contentContainerClassName="px-6 py-2"
+          renderItem={StationListItem}
+          ItemSeparatorComponent={Separator}
+          ListEmptyComponent={
+            !isFetching ? (
+              <Text className="text-foreground">
+                Nenhuma estação encontrada
+              </Text>
+            ) : null
+          }
+        />
+      )}
+    </KeyboardAvoidingView>
   )
 }

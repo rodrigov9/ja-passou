@@ -52,7 +52,7 @@ export function Favorites() {
       keyExtractor={(station, index) => `${station.id}-${index}`}
       keyboardShouldPersistTaps="handled"
       className="overflow-visible"
-      contentContainerClassName="py-3"
+      contentContainerClassName="px-6 py-3"
       ListHeaderComponentClassName="flex-row items-center gap-2 py-1"
       ListHeaderComponent={
         <>
